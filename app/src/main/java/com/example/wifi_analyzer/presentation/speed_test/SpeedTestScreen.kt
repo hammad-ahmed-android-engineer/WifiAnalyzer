@@ -50,15 +50,14 @@ fun SpeedTestScreen(
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
                 .padding(AppDimensions.paddingDefault),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AppTypography.LabelLarge(
                 text = if (res.statusText.isEmpty()) "Tap Begin Test to measure your connection speed" else res.statusText,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
-            Spacer(modifier = Modifier.height(AppDimensions.paddingDefault))
+            Spacer(modifier = Modifier.height(AppDimensions.paddingMedium))
 
             val currentSpeed = if (res.uploadSpeedMbps > 0) res.uploadSpeedMbps else res.downloadSpeedMbps
             val speedLabel = if (res.uploadSpeedMbps > 0) "Upload Speed" else "Download Speed"
@@ -68,7 +67,7 @@ fun SpeedTestScreen(
                 label = speedLabel
             )
 
-            Spacer(modifier = Modifier.height(AppDimensions.paddingDefault))
+            Spacer(modifier = Modifier.height(AppDimensions.paddingLarge))
 
             if (isLandscape) {
                 Row(
@@ -81,6 +80,7 @@ fun SpeedTestScreen(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             AppTypography.LabelMedium(text = "Ping")
+                            Spacer(modifier = Modifier.height(AppDimensions.paddingMicro))
                             AppTypography.TitleLarge(text = res.pingMs.formatPingMs(), color = MaterialTheme.colorScheme.primary)
                         }
                     }
@@ -90,6 +90,7 @@ fun SpeedTestScreen(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             AppTypography.LabelMedium(text = "Download")
+                            Spacer(modifier = Modifier.height(AppDimensions.paddingMicro))
                             AppTypography.TitleLarge(text = res.downloadSpeedMbps.formatMbps(), color = MaterialTheme.colorScheme.primary)
                         }
                     }
@@ -99,6 +100,7 @@ fun SpeedTestScreen(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             AppTypography.LabelMedium(text = "Upload")
+                            Spacer(modifier = Modifier.height(AppDimensions.paddingMicro))
                             AppTypography.TitleLarge(text = res.uploadSpeedMbps.formatMbps(), color = MaterialTheme.colorScheme.primary)
                         }
                     }
@@ -106,33 +108,36 @@ fun SpeedTestScreen(
             } else {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                    horizontalArrangement = Arrangement.spacedBy(AppDimensions.paddingSmall)
                 ) {
-                    AppCard(modifier = Modifier.weight(1f).padding(end = AppDimensions.paddingSmall)) {
+                    AppCard(modifier = Modifier.weight(1f)) {
                         Column(
-                            modifier = Modifier.padding(AppDimensions.paddingDefault),
+                            modifier = Modifier.padding(AppDimensions.paddingSmall),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             AppTypography.LabelMedium(text = "Ping")
-                            AppTypography.TitleLarge(text = res.pingMs.formatPingMs(), color = MaterialTheme.colorScheme.primary)
+                            Spacer(modifier = Modifier.height(AppDimensions.paddingMicro))
+                            AppTypography.TitleMedium(text = res.pingMs.formatPingMs(), color = MaterialTheme.colorScheme.primary)
                         }
                     }
-                    AppCard(modifier = Modifier.weight(1f).padding(horizontal = AppDimensions.paddingSmall)) {
+                    AppCard(modifier = Modifier.weight(1f)) {
                         Column(
-                            modifier = Modifier.padding(AppDimensions.paddingDefault),
+                            modifier = Modifier.padding(AppDimensions.paddingSmall),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             AppTypography.LabelMedium(text = "Download")
-                            AppTypography.TitleLarge(text = res.downloadSpeedMbps.formatMbps(), color = MaterialTheme.colorScheme.primary)
+                            Spacer(modifier = Modifier.height(AppDimensions.paddingMicro))
+                            AppTypography.TitleMedium(text = res.downloadSpeedMbps.formatMbps(), color = MaterialTheme.colorScheme.primary)
                         }
                     }
-                    AppCard(modifier = Modifier.weight(1f).padding(start = AppDimensions.paddingSmall)) {
+                    AppCard(modifier = Modifier.weight(1f)) {
                         Column(
-                            modifier = Modifier.padding(AppDimensions.paddingDefault),
+                            modifier = Modifier.padding(AppDimensions.paddingSmall),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             AppTypography.LabelMedium(text = "Upload")
-                            AppTypography.TitleLarge(text = res.uploadSpeedMbps.formatMbps(), color = MaterialTheme.colorScheme.primary)
+                            Spacer(modifier = Modifier.height(AppDimensions.paddingMicro))
+                            AppTypography.TitleMedium(text = res.uploadSpeedMbps.formatMbps(), color = MaterialTheme.colorScheme.primary)
                         }
                     }
                 }

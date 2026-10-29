@@ -1,10 +1,16 @@
 package com.example.wifi_analyzer.presentation.wifi_router
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.net.http.SslError
 import android.webkit.HttpAuthHandler
+import android.webkit.SslErrorHandler
+import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +20,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -52,8 +59,20 @@ fun WifiRouterScreen(
 
     var showAuthDialog by remember { mutableStateOf(false) }
     var authHandler by remember { mutableStateOf<HttpAuthHandler?>(null) }
-    var authUsername by remember { mutableStateOf("admin") }
-    var authPassword by remember { mutableStateOf("admin") }
+    val authUsername by remember { mutableStateOf("admin") }
+    val authPassword by remember { mutableStateOf("admin") }
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions()
+    ) { _ -> }
+
+    LaunchedEffect(Unit) {
+        val permissions = mutableListOf(Manifest.permission.ACCESS_FINE_LOCATION)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            permissions.add(Manifest.permission.NEARBY_WIFI_DEVICES)
+        }
+        permissionLauncher.launch(permissions.toTypedArray())
+    }
 
     LaunchedEffect(uiState.gatewayIp) {
         if (uiState.gatewayIp.isNotEmpty() && uiState.gatewayIp != "0.0.0.0") {
@@ -140,6 +159,18 @@ fun WifiRouterScreen(
 
             Spacer(modifier = Modifier.height(AppDimensions.paddingDefault))
 
+            // Notice about Android 13+ local network permissions
+            AppCard(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier.padding(AppDimensions.paddingSmall)) {
+                    AppTypography.BodySmall(
+                        text = "Note: If Android blocks local WebView loading (ERR_LOCAL_NETWORK_PERMISSION_MISSING), please use the button below to open the admin page directly in your default web browser.",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(AppDimensions.paddingSmall))
+
             // Embedded Router Admin WebView
             AppCard(
                 modifier = Modifier
@@ -159,12 +190,22 @@ fun WifiRouterScreen(
                                     authHandler = handler
                                     showAuthDialog = true
                                 }
+
+                                override fun onReceivedSslError(
+                                    view: WebView?,
+                                    handler: SslErrorHandler?,
+                                    error: SslError?
+                                ) {
+                                    handler?.proceed()
+                                }
                             }
+                            webChromeClient = WebChromeClient()
                             settings.javaScriptEnabled = true
                             settings.domStorageEnabled = true
                             settings.useWideViewPort = true
                             settings.loadWithOverviewMode = true
                             settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+                            settings.userAgentString = "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36"
                             loadUrl(activeUrl)
                         }
                     },
