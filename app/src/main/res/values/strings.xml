@@ -1,10 +1,71 @@
 <resources>
-    <string name="app_name">Wifi Analyzer</string>
+    <string name="app_name">Wi-Fi Analyzer</string>
+    <string name="app_subtitle">Network Utilities &amp; Tools</string>
+    <string name="app_tagline">Analyze, Test &amp; Manage Your Wi-Fi</string>
     <string name="share_via">Share Via</string>
     <string name="result">Result</string>
     <string name="copy">Copy</string>
-    <string name="title_activity_scan_qr_code">Scan\n</string>
+    <string name="share">Share</string>
 
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="back">Back</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="home">Home</string>
+
+    <!-- Dashboard Titles -->
+    <string name="title_wifi_info">Wi-Fi Info</string>
+    <string name="title_all_wifis">All Wi-Fis</string>
+    <string name="title_speed_test">Speed Test</string>
+    <string name="title_connected_devices">Connected Devices</string>
+    <string name="title_password_generator">Password Generator</string>
+    <string name="title_qr_scanner">QR Scanner</string>
+    <string name="title_add_wifi">Add Wi-Fi</string>
+    <string name="title_generate_qr">Generate QR</string>
+    <string name="title_wifi_router">Router Setup</string>
+    <string name="title_channel_rating">Channel Rating</string>
+    <string name="title_signal_meter">Signal Meter</string>
+
+    <!-- Statuses -->
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="not_connected">Not Connected</string>
+
+    <!-- Action Buttons -->
+    <string name="btn_scan_wifi">Scan Wi-Fi Networks</string>
+    <string name="btn_scanning">Scanning...</string>
+    <string name="btn_scan_devices">Scan Connected Devices</string>
+    <string name="btn_scanning_subnet">Scanning Subnet...</string>
+    <string name="btn_begin_test">Begin Test</string>
+    <string name="btn_restart_test">Restart Test</string>
+    <string name="btn_testing">Testing...</string>
+    <string name="btn_generate_password">Generate New Password</string>
+    <string name="btn_generate_qr">Generate QR Code</string>
+    <string name="btn_connect_save_wifi">Connect &amp; Save Wi-Fi</string>
+    <string name="btn_load_admin_page">Load Admin Page</string>
+    <string name="btn_open_external_browser">Open in External Browser</string>
+    <string name="btn_refresh_signal">Refresh Signal Data</string>
+    <string name="btn_connect_network">Connect to Network</string>
+    <string name="btn_copy_password">Copy Password</string>
+    <string name="btn_grant_camera_permission">Grant Camera Permission</string>
+
+    <!-- Messages & Labels -->
+    <string name="msg_scanning_nearby">Scanning nearby Wi-Fi networks...</string>
+    <string name="msg_no_wifis_found">No Wi-Fi networks found. Tap Scan to retry.</string>
+    <string name="msg_pinging_devices">Pinging network devices...</string>
+    <string name="msg_no_devices_found">No active devices found. Tap Scan to scan local network.</string>
+    <string name="msg_analyzing_channels">Analyzing Wi-Fi channels...</string>
+    <string name="msg_speed_instruction">Tap Begin Test to measure your connection speed</string>
+    <string name="msg_camera_perm_needed">Camera permission is needed to scan QR codes.</string>
+    <string name="msg_copied_clipboard">Copied to clipboard!</string>
+
+    <!-- Form Labels -->
+    <string name="label_network_ssid">Network SSID</string>
+    <string name="label_security_type">Security Type</string>
+    <string name="label_password">Password</string>
+    <string name="label_hidden_network">Hidden Network</string>
+    <string name="label_router_ip">Router Gateway IP</string>
+    <string name="label_default_creds">Default Credentials Reference</string>
 
     <string name="qc_code_close">Close</string>
     <string name="qr_code_select_picture">Picture</string>
@@ -15,14 +76,7 @@
     <string name="qr_code_camera_not_open">Could not open your camera</string>
     <string name="qr_code_positive_button_know">OK</string>
     <string name="qr_code_positive_button_confirm">Confirm</string>
-    <string name="qr_code_could_not_read_qr_code_from_picture">Could not read your image.Try another image~</string>
+    <string name="qr_code_could_not_read_qr_code_from_picture">Could not read your image. Try another image~</string>
     <string name="qr_code_could_not_read_qr_code_from_scanner">Sorry, could not open scan content</string>
     <string name="qr_code_camera_not_found">Could not detect camera</string>
-
-    <string name="nav_open">Open</string>
-    <string name="nav_close">Close</string>
-    <string name="appId">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="nativeAd">ca-app-pub-3940256099942544/1044960115</string>
-    <string name="openAd">ca-app-pub-3940256099942544/3419835294</string>
-    <string name="ca_app_pub_3940256099942544_6300978111">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

@@ -1,16 +1,19 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
-    namespace = "com.wifi_manager.wifi_analyzer.analyze_network_connection"
-    compileSdk = 34
+    namespace = "com.example.wifi_analyzer"
+    compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.wifi_manager.wifi_analyzer.analyze_network_connection"
+        applicationId = "com.example.wifi_analyzer"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -18,11 +21,11 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
 
@@ -30,11 +33,16 @@ android {
             isMinifyEnabled = false
             isShrinkResources = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
     }
+
+    buildFeatures {
+        compose = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -42,15 +50,49 @@ android {
 }
 
 dependencies {
+    implementation(libs.coreKtx)
+    implementation(libs.coreSplashscreen)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.commonsLang3)
 
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    implementation("com.karumi:dexter:6.2.3")
-    implementation("org.apache.commons:commons-lang3:3.12.0")
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+    // Hilt DI
+    implementation("com.google.dagger:hilt-android:2.60.1")
+    add("kapt", "com.google.dagger:hilt-compiler:2.60.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    // Compose BOM & UI
+    val composeBom = platform(libs.composeBom)
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+
+    implementation(libs.composeUi)
+    implementation(libs.composeUiGraphics)
+    implementation(libs.composeUiToolingPreview)
+    debugImplementation(libs.composeUiTooling)
+    implementation(libs.composeMaterial3)
+    implementation("androidx.compose.material:material-icons-extended")
+
+    implementation(libs.activityCompose)
+    implementation(libs.lifecycleViewModelCompose)
+    implementation(libs.lifecycleRuntimeCompose)
+    implementation(libs.navigationCompose)
+
+    // Scalable dimensions SDP & SSP
+    implementation(libs.sdpAndroid)
+    implementation(libs.sspAndroid)
+
+    // ZXing for QR Code generation & decoding
+    implementation(libs.zxingCore)
+
+    // CameraX & ML Kit for QR scanning
+    implementation(libs.cameraxCore)
+    implementation(libs.cameraxCamera2)
+    implementation(libs.cameraxLifecycle)
+    implementation(libs.cameraxView)
+    implementation(libs.mlkitBarcodeScanning)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.extJunit)
+    androidTestImplementation(libs.espressoCore)
 }
